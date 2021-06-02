@@ -8,8 +8,10 @@
 		<!-- update the version number as needed -->
 		<script defer src="/__/firebase/8.6.3/firebase-app.js"></script>
 		<!-- include only the Firebase features as you need -->
-		<script defer src="/__/firebase/8.6.3/firebase-auth.js"></script>
-		<script defer src="/__/firebase/8.6.3/firebase-database.js"></script>
+		<script defer src="/__/firebase/8.6.3/firebase-auth.js">
+			</scriptde>
+					<script defer src="/__/firebase/8.6.3/firebase-database.js">
+		</script>
 		<script defer src="/__/firebase/8.6.3/firebase-firestore.js"></script>
 		<script defer src="/__/firebase/8.6.3/firebase-functions.js"></script>
 		<script defer src="/__/firebase/8.6.3/firebase-messaging.js"></script>
@@ -22,7 +24,10 @@
       to avoid connecting the SDK to running emulators.
     -->
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-		<script defer src="app.js"></script>
+		<script defer src="/public/app.js"></script>
+		<script>
+			checkAuthLogin();
+		</script>
 	</head>
 	<body>
 		<div>
