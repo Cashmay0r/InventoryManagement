@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
 	checkAuth();
-
-	writeUserData();
-	readUserData(1);
+	if (window.location.href.indexOf('account.html') > -1) {
+		readUserData();
+	}
+	//writeUserData();
 });
 
 function checkAuth() {
@@ -70,7 +71,8 @@ function readUserData(userId) {
 		.get()
 		.then((snapshot) => {
 			if (snapshot.exists()) {
-				console.log(snapshot.val());
+				//console.log(snapshot.val());
+				printUserData(snapshot);
 			} else {
 				console.log('No data available');
 			}
@@ -78,4 +80,9 @@ function readUserData(userId) {
 		.catch((error) => {
 			console.error(error);
 		});
+}
+
+function printUserData(data) {
+	let snap = data.val();
+	console.log(snap.company);
 }
