@@ -1,21 +1,17 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
+	checkAuthLogin();
 });
 function checkAuthLogin() {
-	var user = firebase.auth().currentUser;
-
-	if (user) {
-		window.location = 'html/home.html';
-	} else {
-	}
+	firebase.auth().onAuthStateChanged(function (user) {
+		if (user) {
+			console.log('Logged In', user);
+			window.location = 'html/home.html';
+		} else {
+			console.log('Not Logged In');
+		}
+	});
 }
-firebase.auth().onAuthStateChanged(function (user) {
-	if (user) {
-		// User is signed in.
-	} else {
-		window.location = 'index.html';
-	}
-});
 
 function register() {
 	const email = document.getElementById('email').value;
@@ -47,26 +43,13 @@ function login() {
 		.signInWithEmailAndPassword(email, password)
 		.then((userCredential) => {
 			console.log('User Logged In');
-			window.location = 'home.html';
+			window.location = 'html/home.html';
 			var user = userCredential.user;
 			// ...
 		})
 		.catch((error) => {
 			var errorCode = error.code;
 			var errorMessage = error.message;
-			console.log(error);
-		});
-}
-
-function logout() {
-	firebase
-		.auth()
-		.signOut()
-		.then(() => {
-			console.log('User Logged Out');
-			window.location.replace('index.html');
-		})
-		.catch((error) => {
 			console.log(error);
 		});
 }
