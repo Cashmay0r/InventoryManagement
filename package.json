@@ -1,22 +1,23 @@
 {
-  "name": "inventorymanagement",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Cashmay0r/InventoryManagement.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Cashmay0r/InventoryManagement/issues"
-  },
-  "homepage": "https://github.com/Cashmay0r/InventoryManagement#readme",
-  "dependencies": {
-    "firebase": "^8.6.3"
-  }
+	"type": "module",
+	"name": "inventorymanagement",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Cashmay0r/InventoryManagement.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Cashmay0r/InventoryManagement/issues"
+	},
+	"homepage": "https://github.com/Cashmay0r/InventoryManagement#readme",
+	"dependencies": {
+		"firebase": "^8.6.3"
+	}
 }

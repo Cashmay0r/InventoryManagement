@@ -26,3 +26,6 @@ main {
 	margin-left: 200px;
 	padding: 10px;
 }
+.list-group {
+	max-width: 500px;
+}
