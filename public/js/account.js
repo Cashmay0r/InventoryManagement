@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
 	checkAuth();
-	if (window.location.href.indexOf('account.html') > -1) {
-		readUserData();
-	}
 	//writeUserData();
+	readUserData('pot');
 });
 
 function checkAuth() {
@@ -36,16 +34,15 @@ function logout() {
 }
 
 function writeUserData() {
-	let imageUrl = 'a';
-
-	let userId = 1;
-	let authLevel = 1;
-	let fName = 1;
-	let lName = 1;
-	let email = 1;
-	let phone = 1;
-	let company = 1;
-	let companyId = 1;
+	let imageUrl = 'piss';
+	let userId = 'pot';
+	let authLevel = 'pog';
+	let fName = 'pee';
+	let lName = 'pig';
+	let email = 'pip';
+	let phone = 'pit';
+	let company = 'pet';
+	let companyId = 'pat';
 	firebase
 		.database()
 		.ref('users/' + userId)
@@ -84,5 +81,14 @@ function readUserData(userId) {
 
 function printUserData(data) {
 	let snap = data.val();
+	document.getElementById('image').innerHTML += ' ' + snap.imageUrl;
+	document.getElementById('userid').innerHTML += ' ' + snap.userId;
+	document.getElementById('authlevel').innerHTML += ' ' + snap.authLevel;
+	document.getElementById('fName').innerHTML += ' ' + snap.fName;
+	document.getElementById('lName').innerHTML += ' ' + snap.lName;
+	document.getElementById('email').innerHTML += ' ' + snap.email;
+	document.getElementById('phone').innerHTML += ' ' + snap.phone;
+	document.getElementById('company').innerHTML += ' ' + snap.company;
+	document.getElementById('companyid').innerHTML += ' ' + snap.companyId;
 	console.log(snap.company);
 }
