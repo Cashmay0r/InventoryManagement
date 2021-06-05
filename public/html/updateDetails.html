@@ -46,8 +46,8 @@
 		</nav>
 		<main>
 			<div id="accountContent">
-				<h2>Account Details</h2>
-				<ul class="list-group">
+				<h2>Update Account Details</h2>
+				<!--<ul class="list-group">
 					<li id="image" class="list-group-item">Image:</li>
 					<li id="userid" class="list-group-item">UserID:</li>
 					<li id="authlevel" class="list-group-item">AuthLevel:</li>
@@ -58,9 +58,26 @@
 					<li id="company" class="list-group-item">Company:</li>
 					<li id="companyid" class="list-group-item">CompanyID:</li>
 				</ul>
+            -->
+				<form>
+					<div class="form-group">
+						<label>Image: </label>
+						<input class="form-control" id="imageUpdate" />
+						<label>First Name: </label>
+						<input class="form-control" id="fNameUpdate" />
+						<label>Last Name: </label>
+						<input class="form-control" id="lNameUpdate" />
+						<label>Phone: </label>
+						<input class="form-control" id="phoneUpdate" />
+						<label>Company: </label>
+						<input class="form-control" id="companyUpdate" />
+						<label>CompanyID: </label>
+						<input class="form-control" id="companyIdUpdate" />
+					</div>
+				</form>
 			</div>
-			<button class="btn btn-primary px-5 my-2" id="logout" onclick="logout()">Logout</button>
-			<button class="btn btn-primary px-5 my-2" id="updateDetails" onclick="window.location = 'updateDetails.html'">Update</button>
+			<button class="btn btn-primary px-5 my-2" id="update" onclick="updateDetails()">Update</button>
+			<button class="btn btn-primary px-5 my-2" id="cancel" onclick="window.location = 'account.html'">Cancel</button>
 		</main>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

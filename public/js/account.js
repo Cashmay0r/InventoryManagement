@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
 	checkAuth();
-	//writeUserData();
-	readUserData('pot');
 });
 
 function checkAuth() {
@@ -13,6 +11,11 @@ function checkAuth() {
 			if (window.location.href.indexOf('home.html') > -1) {
 				document.getElementById('welcomeText').innerHTML = 'Welcome ' + user.email + '!';
 				document.getElementById('accountContent').removeAttribute('hidden');
+			}
+			if (window.location.pathname == '/html/account.html') {
+				//writeUserData();
+				readUserData(user.uid);
+				updateUserInfo();
 			}
 		} else {
 			console.log('Not Logged In, Redirecting...');
@@ -34,12 +37,13 @@ function logout() {
 }
 
 function writeUserData() {
+	var user = firebase.auth().currentUser;
 	let imageUrl = 'piss';
-	let userId = 'pot';
+	let userId = user.uid;
 	let authLevel = 'pog';
 	let fName = 'pee';
 	let lName = 'pig';
-	let email = 'pip';
+	let email = user.email;
 	let phone = 'pit';
 	let company = 'pet';
 	let companyId = 'pat';
@@ -75,7 +79,7 @@ function readUserData(userId) {
 			}
 		})
 		.catch((error) => {
-			console.error(error);
+			console.error('Unable to read user data');
 		});
 }
 
@@ -90,5 +94,81 @@ function printUserData(data) {
 	document.getElementById('phone').innerHTML += ' ' + snap.phone;
 	document.getElementById('company').innerHTML += ' ' + snap.company;
 	document.getElementById('companyid').innerHTML += ' ' + snap.companyId;
-	console.log(snap.company);
+}
+
+function updateUserInfo() {
+	var user = firebase.auth().currentUser;
+	console.log(user.uid);
+
+	user
+		.updateProfile({
+			displayName: 'Aidaaan',
+			photoURL: 'https://example.com/jane-q-user/profile.jpg',
+		})
+		.then(function () {
+			console.log('User updated ' + user.displayName);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+}
+function updateDetails() {
+	var user = firebase.auth().currentUser;
+
+	const userId = user.uid;
+	const img = document.getElementById('imageUpdate').value;
+	const fName = document.getElementById('fNameUpdate').value;
+	const lName = document.getElementById('lNameUpdate').value;
+	const phone = document.getElementById('phoneUpdate').value;
+	const company = document.getElementById('companyUpdate').value;
+	const companyId = document.getElementById('companyIdUpdate').value;
+
+	if (img.trim() != '') {
+		firebase
+			.database()
+			.ref('users/' + userId)
+			.update({
+				imageUrl: img,
+			});
+	}
+	if (fName.trim() != '') {
+		firebase
+			.database()
+			.ref('users/' + userId)
+			.update({
+				fName: fName,
+			});
+	}
+	if (lName.trim() != '') {
+		firebase
+			.database()
+			.ref('users/' + userId)
+			.update({
+				lName: lName,
+			});
+	}
+	if (phone.trim() != '') {
+		firebase
+			.database()
+			.ref('users/' + userId)
+			.update({
+				phone: phone,
+			});
+	}
+	if (company.trim() != '') {
+		firebase
+			.database()
+			.ref('users/' + userId)
+			.update({
+				company: company,
+			});
+	}
+	if (companyId.trim() != '') {
+		firebase
+			.database()
+			.ref('users/' + userId)
+			.update({
+				companyId: companyId,
+			});
+	}
 }
