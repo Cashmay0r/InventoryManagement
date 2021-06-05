@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
 	checkAuthLogin();
 });
+
 function checkAuthLogin() {
 	firebase.auth().onAuthStateChanged(function (user) {
 		if (user) {
