@@ -3,7 +3,7 @@
 	"name": "inventorymanagement",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "/public/",
 	"scripts": {
 		"start": "nodemon server.js"
 	},

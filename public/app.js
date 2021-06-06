@@ -1,23 +1,13 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+/*document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
 	checkAuthLogin();
-});
-
-function checkAuthLogin() {
-	firebase.auth().onAuthStateChanged(function (user) {
-		if (user) {
-			console.log('Logged In', user);
-			window.location = '../html/home.html';
-		} else {
-			console.log('Not Logged In');
-		}
-	});
-}
+});*/
 
 function register() {
 	const email = document.getElementById('emailReg').value;
 	const pass = document.getElementById('passwordReg').value;
 	const passConfirm = document.getElementById('passwordRegConfirm').value;
+
 	console.log(email, pass, passConfirm);
 
 	if (pass.trim() === passConfirm.trim()) {
