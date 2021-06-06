@@ -3,7 +3,7 @@
 	"name": "inventorymanagement",
 	"version": "1.0.0",
 	"description": "",
-	"main": "/public/",
+	"main": "server.js",
 	"scripts": {
 		"start": "nodemon server.js"
 	},
@@ -20,8 +20,8 @@
 	"dependencies": {
 		"ejs": "^3.1.6",
 		"express": "^4.17.1",
-		"firebase": "^8.6.3",
-		"pug": "^3.0.2"
+		"firebase": "^8.6.3"
+
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.7"

@@ -1,19 +1,15 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-
 import firebase from 'firebase';
-// If you enabled Analytics in your project, add the Firebase SDK for Analytics
-import '@firebase/analytics';
-// Add the Firebase products that you want to use
 import '@firebase/auth';
-import '@firebase/firestore';
+
+const app = express();
+const port = 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const app = express();
-const port = 3000;
 app.use(express.static(__dirname + '/public/'));
 app.use(express.static(__dirname + '/public/css/'));
 app.use(express.static(__dirname + '/public/js/'));
@@ -31,25 +27,21 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-function checkAuthLogin() {
-	firebase.auth().onAuthStateChanged(function (user) {
+app.get('/', (req, res) => {
+	res.sendFile(__dirname + '/public/html/index.html');
+});
+
+/*app.get('/html/account.html', (req, res) => {
+	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {
-			console.log('Logged In', user);
-			return true;
+			res.sendFile(__dirname + '/public/html/account.html');
+			next();
 		} else {
-			console.log('Not Logged In');
-			return false;
+			res.redirect(__dirname + '/public/html/index.html');
+			next();
 		}
 	});
-}
-
-app.get('/', (req, res) => {
-	if (checkAuthLogin()) {
-		console.log('Logged In');
-	} else {
-		res.sendFile(__dirname + '/public/index.html');
-	}
-});
+});*/
 
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);

@@ -1,3 +1,16 @@
+const firebaseConfig = {
+	apiKey: 'AIzaSyD4uQyMGJ0aQqg8oBWnbWRfZyUoIMaYl3U',
+	authDomain: 'profile-management-8a61b.firebaseapp.com',
+	databaseURL: 'https://profile-management-8a61b-default-rtdb.firebaseio.com',
+	projectId: 'profile-management-8a61b',
+	storageBucket: 'profile-management-8a61b.appspot.com',
+	messagingSenderId: '557995874959',
+	appId: '1:557995874959:web:850cd8358500b9ba0b2efa',
+	measurementId: 'G-65F0XWDRD6',
+};
+
+firebase.initializeApp(firebaseConfig);
+
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
 	checkAuth();
@@ -12,14 +25,14 @@ function checkAuth() {
 				document.getElementById('welcomeText').innerHTML = 'Welcome ' + user.email + '!';
 				document.getElementById('accountContent').removeAttribute('hidden');
 			}
-			if (window.location.pathname == '/html/account.html') {
+			if (window.location.pathname == '../html/account.html') {
 				//writeUserData();
 				readUserData(user.uid);
 				updateUserInfo();
 			}
 		} else {
 			console.log('Not Logged In, Redirecting...');
-			window.location = '../index.html';
+			window.location = '../html/index.html';
 		}
 	});
 }
@@ -28,7 +41,7 @@ function logout() {
 		.auth()
 		.signOut()
 		.then(() => {
-			window.location = '../index.html';
+			window.location = '../html/index.html';
 			console.log('User Logged Out');
 		})
 		.catch((error) => {
