@@ -1,5 +1,6 @@
 const currentPage = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
-
+let userProfile = {};
+let loggedIn = true;
 const firebaseConfig = {
 	apiKey: 'AIzaSyD4uQyMGJ0aQqg8oBWnbWRfZyUoIMaYl3U',
 	authDomain: 'profile-management-8a61b.firebaseapp.com',
@@ -12,10 +13,9 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const app = firebase.app();
 
 document.addEventListener('DOMContentLoaded', (event) => {
-	const app = firebase.app();
-	user = firebase.auth().currentUser;
 	//Button Listeners
 	//Listener for logout button
 	if (document.getElementById('logout') != null) {
@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				.auth()
 				.signOut()
 				.then(() => {
-					window.location = '../html/index.html';
 					console.log('User Logged Out');
 				})
 				.catch((error) => {
@@ -42,29 +41,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
+		//Logged In
+		userProfile = user;
+		loggedIn = true;
 		console.log('Logged In');
-		console.log(user);
+		console.log(userProfile);
 	} else {
+		loggedIn = false;
+		userProfile = user;
 		console.log('Not Logged In');
-		console.log(user);
+
+		console.log(userProfile);
 	}
 });
-
-const dbRef = firebase.database().ref();
-dbRef
-	.child('users')
-	.child(user)
-	.get()
-	.then((snapshot) => {
-		if (snapshot.exists()) {
-			console.log(snapshot.val());
-		} else {
-			console.log('No data available');
-		}
-	})
-	.catch((error) => {
-		console.error(error);
-	});
 
 function writeUserData() {
 	const user = firebase.auth().currentUser;
