@@ -85,8 +85,8 @@ function readUserData(userId) {
 		.get()
 		.then((snapshot) => {
 			if (snapshot.exists()) {
-				//console.log(snapshot.val());
-				printUserData(snapshot);
+				console.log(snapshot.val());
+				printUserData(snapshot.val.uid);
 			} else {
 				console.log('No data available');
 			}
@@ -143,6 +143,7 @@ function updateDetails() {
 			.update({
 				imageUrl: img,
 			});
+		console.log(`ImageUrl updated to ${img}`);
 	}
 	if (fName.trim() != '') {
 		firebase

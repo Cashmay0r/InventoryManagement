@@ -25,6 +25,7 @@ function checkAuthLogin() {
 	firebase.auth().onAuthStateChanged(function (user) {
 		if (user) {
 			console.log('Logged In', user);
+			window.location = '../html/home.html';
 		} else {
 			console.log('Not Logged In');
 		}
@@ -43,9 +44,9 @@ function register() {
 			.auth()
 			.createUserWithEmailAndPassword(email, pass)
 			.then((userCredential) => {
-				// Signed in
+				// Signed i
 				var user = userCredential.user;
-				// ...
+				window.location = '../html/home.html';
 				console.log(user);
 			})
 			.catch((error) => {
@@ -76,5 +77,6 @@ function login() {
 			var errorCode = error.code;
 			var errorMessage = error.message;
 			console.log(error);
+			alert(errorMessage);
 		});
 }
