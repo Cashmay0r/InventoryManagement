@@ -1,3 +1,5 @@
+const currentPage = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyD4uQyMGJ0aQqg8oBWnbWRfZyUoIMaYl3U',
 	authDomain: 'profile-management-8a61b.firebaseapp.com',
@@ -13,58 +15,75 @@ firebase.initializeApp(firebaseConfig);
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
-	checkAuth();
+	user = firebase.auth().currentUser;
+	//Button Listeners
+	//Listener for logout button
+	if (document.getElementById('logout') != null) {
+		document.getElementById('logout').addEventListener('click', (e) => {
+			firebase
+				.auth()
+				.signOut()
+				.then(() => {
+					window.location = '../html/index.html';
+					console.log('User Logged Out');
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		});
+	}
+	//Listener for updateDetails
+	if (document.getElementById('updateDetails') != null) {
+		document.getElementById('updateDetails').addEventListener('click', function () {
+			window.location = 'updateDetails.html';
+		});
+	}
 });
 
-function checkAuth() {
-	firebase.auth().onAuthStateChanged(function (user) {
-		if (user) {
-			console.log('Logged In', user);
-			console.log('Access Granted');
-			if (window.location.href.indexOf('home.html') > -1) {
-				document.getElementById('welcomeText').innerHTML = 'Welcome ' + user.email + '!';
-				document.getElementById('accountContent').removeAttribute('hidden');
-			}
-			if (window.location.pathname == '../html/account.html') {
-				//writeUserData();
-				readUserData(user.uid);
-				updateUserInfo();
-			}
+firebase.auth().onAuthStateChanged(function (user) {
+	if (user) {
+		console.log('Logged In');
+		console.log(user);
+	} else {
+		console.log('Not Logged In');
+		console.log(user);
+	}
+});
+
+const dbRef = firebase.database().ref();
+dbRef
+	.child('users')
+	.child(user)
+	.get()
+	.then((snapshot) => {
+		if (snapshot.exists()) {
+			console.log(snapshot.val());
 		} else {
-			console.log('Not Logged In, Redirecting...');
-			window.location = '../html/index.html';
+			console.log('No data available');
 		}
+	})
+	.catch((error) => {
+		console.error(error);
 	});
-}
-function logout() {
-	firebase
-		.auth()
-		.signOut()
-		.then(() => {
-			window.location = '../html/index.html';
-			console.log('User Logged Out');
-		})
-		.catch((error) => {
-			console.log(error);
-		});
-}
 
 function writeUserData() {
-	var user = firebase.auth().currentUser;
-	let imageUrl = 'piss';
-	let userId = user.uid;
-	let authLevel = 'pog';
-	let fName = 'pee';
-	let lName = 'pig';
-	let email = user.email;
-	let phone = 'pit';
-	let company = 'pet';
-	let companyId = 'pat';
+	const user = firebase.auth().currentUser;
+
+	let authLevel = 'User';
+	const email = user.email;
+	const userId = user.uid;
+	const img = document.getElementById('imageCreate').value;
+	const fName = document.getElementById('fNameCreate').value;
+	const lName = document.getElementById('lNameCreate').value;
+	const phone = document.getElementById('phoneCreate').value;
+	const company = document.getElementById('companyCreate').value;
+	const companyId = document.getElementById('companyIdCreate').value;
+
 	firebase
 		.database()
 		.ref('users/' + userId)
 		.set({
-			imageUrl: imageUrl,
+			imageUrl: img,
 			userId: userId,
 			authLevel: authLevel,
 			fName: fName,
@@ -73,10 +92,16 @@ function writeUserData() {
 			phone: phone,
 			company: company,
 			companyId: companyId,
+		})
+		.then((result) => {
+			console.log('Uploaded');
+			window.location = '../html/home.html';
+		})
+		.catch((err) => {
+			console.log(err);
 		});
-
-	console.log('Uploaded');
 }
+
 function readUserData(userId) {
 	const dbRef = firebase.database().ref();
 	dbRef
@@ -86,13 +111,12 @@ function readUserData(userId) {
 		.then((snapshot) => {
 			if (snapshot.exists()) {
 				console.log(snapshot.val());
-				printUserData(snapshot.val.uid);
 			} else {
 				console.log('No data available');
 			}
 		})
 		.catch((error) => {
-			console.error('Unable to read user data');
+			console.error(error);
 		});
 }
 
@@ -152,6 +176,7 @@ function updateDetails() {
 			.update({
 				fName: fName,
 			});
+		console.log(`First Name updated to ${fName}`);
 	}
 	if (lName.trim() != '') {
 		firebase
@@ -160,6 +185,7 @@ function updateDetails() {
 			.update({
 				lName: lName,
 			});
+		console.log(`Last Name updated to ${lName}`);
 	}
 	if (phone.trim() != '') {
 		firebase
@@ -168,6 +194,7 @@ function updateDetails() {
 			.update({
 				phone: phone,
 			});
+		console.log(`Phone updated to ${phone}`);
 	}
 	if (company.trim() != '') {
 		firebase
@@ -176,6 +203,7 @@ function updateDetails() {
 			.update({
 				company: company,
 			});
+		console.log(`Company updated to ${company}`);
 	}
 	if (companyId.trim() != '') {
 		firebase
@@ -184,5 +212,8 @@ function updateDetails() {
 			.update({
 				companyId: companyId,
 			});
+		console.log(`Company ID updated to ${companyId}`);
 	}
+
+	window.location = '../html/account.html';
 }

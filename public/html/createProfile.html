@@ -11,31 +11,32 @@
 		<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-database.js"></script>
-		<script defer src="../app.js"></script>
+		<script src="../account.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
 		<link rel="stylesheet" type="text/css" href="../css/style.css" />
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="text-center">Register</h1>
-			<div class="row">
-				<div class="mb-3">
-					<label class="form-label">Enter Email: </label>
-					<input class="form-control" required type="email" id="emailReg" />
+			<h1 class="text-center">Create Profile</h1>
+
+			<form>
+				<div class="form-group">
+					<label>Image: </label>
+					<input class="form-control" id="imageCreate" />
+					<label>First Name: </label>
+					<input class="form-control" id="fNameCreate" />
+					<label>Last Name: </label>
+					<input class="form-control" id="lNameCreate" />
+					<label>Phone: </label>
+					<input class="form-control" id="phoneCreate" />
+					<label>Company: </label>
+					<input class="form-control" id="companyCreate" />
+					<label>CompanyID: </label>
+					<input class="form-control" id="companyIdCreate" />
 				</div>
-				<div class="mb-3">
-					<label class="form-label">Enter Password: </label>
-					<input class="form-control" required type="password" id="passwordReg" />
-				</div>
-				<div class="mb-3">
-					<label class="form-label">Confirm Password: </label>
-					<input class="form-control" required type="password" id="passwordRegConfirm" />
-				</div>
-				<div class="text-center">
-					<button class="btn btn-primary px-5" onclick="register()">Register</button>
-					<button class="btn btn-primary px-5" onclick="window.location = 'index.html'">Cancel</button>
-				</div>
-			</div>
+			</form>
+			<button class="btn btn-primary px-5 my-2" id="submitProfile" onclick="writeUserData()">Submit</button>
+			<button class="btn btn-primary px-5 my-2" id="cancelProfile" onclick="logout()">Cancel</button>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 	</body>

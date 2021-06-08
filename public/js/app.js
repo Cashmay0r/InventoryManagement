@@ -14,23 +14,20 @@ firebase.initializeApp(firebaseConfig);
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
-	checkAuthLogin();
-	const logBtn = document.getElementById('loginBtn');
-	if (logBtn != null) {
+	if (document.getElementById('loginBtn') != null) {
 		console.log('Login Button Event Listener Attached');
 		document.getElementById('loginBtn').addEventListener('click', login);
 	}
 });
-function checkAuthLogin() {
-	firebase.auth().onAuthStateChanged(function (user) {
-		if (user) {
-			console.log('Logged In', user);
-			window.location = '../html/home.html';
-		} else {
-			console.log('Not Logged In');
-		}
-	});
-}
+
+firebase.auth().onAuthStateChanged(function (user) {
+	if (user) {
+		console.log('Logged In');
+		window.location.href = '../html/home.html';
+	} else {
+		console.log('Not Logged In');
+	}
+});
 
 function register() {
 	const email = document.getElementById('emailReg').value;

@@ -1,8 +1,8 @@
 -Implement ExpressJS and route pages correctly, so user doesn't get a glimpse of a page they should not be seeing
 
 Link userID with account Details, Also link displayName
--Hide password when user is entering their password
--Redirect user to fill in ford details when account made
+
+-Redirect user to fill in form details when account made
 -Add update profile details button, also add option to delete whole account.
 -Add option to delete account
 -Add a profile picture function (user firebase storage to store image)
