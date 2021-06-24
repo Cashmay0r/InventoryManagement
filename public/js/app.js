@@ -1,17 +1,3 @@
-//import firebase from 'firebase';
-const firebaseConfig = {
-	apiKey: 'AIzaSyD4uQyMGJ0aQqg8oBWnbWRfZyUoIMaYl3U',
-	authDomain: 'profile-management-8a61b.firebaseapp.com',
-	databaseURL: 'https://profile-management-8a61b-default-rtdb.firebaseio.com',
-	projectId: 'profile-management-8a61b',
-	storageBucket: 'profile-management-8a61b.appspot.com',
-	messagingSenderId: '557995874959',
-	appId: '1:557995874959:web:850cd8358500b9ba0b2efa',
-	measurementId: 'G-65F0XWDRD6',
-};
-
-firebase.initializeApp(firebaseConfig);
-
 document.addEventListener('DOMContentLoaded', (event) => {
 	const app = firebase.app();
 	if (document.getElementById('loginBtn') != null) {

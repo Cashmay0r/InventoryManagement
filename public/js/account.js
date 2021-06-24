@@ -1,21 +1,15 @@
+//Displays current page file name, e.g., account.html
 const currentPage = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
-let userProfile = {};
-let loggedIn = true;
-const firebaseConfig = {
-	apiKey: 'AIzaSyD4uQyMGJ0aQqg8oBWnbWRfZyUoIMaYl3U',
-	authDomain: 'profile-management-8a61b.firebaseapp.com',
-	databaseURL: 'https://profile-management-8a61b-default-rtdb.firebaseio.com',
-	projectId: 'profile-management-8a61b',
-	storageBucket: 'profile-management-8a61b.appspot.com',
-	messagingSenderId: '557995874959',
-	appId: '1:557995874959:web:850cd8358500b9ba0b2efa',
-	measurementId: 'G-65F0XWDRD6',
-};
-
-firebase.initializeApp(firebaseConfig);
-const app = firebase.app();
 
 document.addEventListener('DOMContentLoaded', (event) => {
+	const getData = async () => {
+		console.log('I am in an async function');
+		const uid = await getAuth();
+		console.log(uid);
+		if (currentPage == 'account.html') {
+		}
+	};
+	getData();
 	//Button Listeners
 	//Listener for logout button
 	if (document.getElementById('logout') != null) {
@@ -37,22 +31,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			window.location = 'updateDetails.html';
 		});
 	}
-});
-
-firebase.auth().onAuthStateChanged(function (user) {
-	if (user) {
-		//Logged In
-		userProfile = user;
-		loggedIn = true;
-		console.log('Logged In');
-		console.log(userProfile);
-	} else {
-		loggedIn = false;
-		userProfile = user;
-		console.log('Not Logged In');
-
-		console.log(userProfile);
-	}
+	//Listener for NavAccount
 });
 
 function writeUserData() {
@@ -91,7 +70,9 @@ function writeUserData() {
 		});
 }
 
-function readUserData(userId) {
+function readUserData() {
+	const uid = getUid();
+	console.log(uid);
 	const dbRef = firebase.database().ref();
 	dbRef
 		.child('users')
