@@ -1,6 +1,6 @@
 //Displays current page file name, e.g., account.html
-const currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-let profile = new Promise((resovle, reject) => {});
+let profile = new Promise((resolve, reject) => {});
+
 document.addEventListener("DOMContentLoaded", (event) => {
   if (currentPage == "account.html") {
     getUserData
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .signOut()
         .then(() => {
           console.log("User Logged Out");
+          window.location.replace("../index.html");
         })
         .catch((error) => {
           console.log(error);
@@ -130,70 +131,68 @@ function updateUserInfo() {
     });
 }
 function updateDetails() {
-  var user = firebase.auth().currentUser;
-
-  const userId = user.uid;
   const img = document.getElementById("imageUpdate").value;
   const fName = document.getElementById("fNameUpdate").value;
   const lName = document.getElementById("lNameUpdate").value;
   const phone = document.getElementById("phoneUpdate").value;
   const company = document.getElementById("companyUpdate").value;
   const companyId = document.getElementById("companyIdUpdate").value;
-
-  if (img.trim() != "") {
-    firebase
-      .database()
-      .ref("users/" + userId)
-      .update({
-        imageUrl: img,
-      });
-    console.log(`ImageUrl updated to ${img}`);
-  }
-  if (fName.trim() != "") {
-    firebase
-      .database()
-      .ref("users/" + userId)
-      .update({
-        fName: fName,
-      });
-    console.log(`First Name updated to ${fName}`);
-  }
-  if (lName.trim() != "") {
-    firebase
-      .database()
-      .ref("users/" + userId)
-      .update({
-        lName: lName,
-      });
-    console.log(`Last Name updated to ${lName}`);
-  }
-  if (phone.trim() != "") {
-    firebase
-      .database()
-      .ref("users/" + userId)
-      .update({
-        phone: phone,
-      });
-    console.log(`Phone updated to ${phone}`);
-  }
-  if (company.trim() != "") {
-    firebase
-      .database()
-      .ref("users/" + userId)
-      .update({
-        company: company,
-      });
-    console.log(`Company updated to ${company}`);
-  }
-  if (companyId.trim() != "") {
-    firebase
-      .database()
-      .ref("users/" + userId)
-      .update({
-        companyId: companyId,
-      });
-    console.log(`Company ID updated to ${companyId}`);
-  }
-
+  getUserData.then((user) => {
+    const userId = user.uid;
+    if (img.trim() != "") {
+      firebase
+        .database()
+        .ref("users/" + userId)
+        .update({
+          imageUrl: img,
+        });
+      console.log(`ImageUrl updated to ${img}`);
+    }
+    if (fName.trim() != "") {
+      firebase
+        .database()
+        .ref("users/" + userId)
+        .update({
+          fName: fName,
+        });
+      console.log(`First Name updated to ${fName}`);
+    }
+    if (lName.trim() != "") {
+      firebase
+        .database()
+        .ref("users/" + userId)
+        .update({
+          lName: lName,
+        });
+      console.log(`Last Name updated to ${lName}`);
+    }
+    if (phone.trim() != "") {
+      firebase
+        .database()
+        .ref("users/" + userId)
+        .update({
+          phone: phone,
+        });
+      console.log(`Phone updated to ${phone}`);
+    }
+    if (company.trim() != "") {
+      firebase
+        .database()
+        .ref("users/" + userId)
+        .update({
+          company: company,
+        });
+      console.log(`Company updated to ${company}`);
+    }
+    if (companyId.trim() != "") {
+      firebase
+        .database()
+        .ref("users/" + userId)
+        .update({
+          companyId: companyId,
+        });
+      console.log(`Company ID updated to ${companyId}`);
+    }
+  });
   window.location = "../html/account.html";
 }

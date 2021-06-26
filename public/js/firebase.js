@@ -1,3 +1,5 @@
+const currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+
 //Firebase Credentials + Initilization
 const firebaseConfig = {
   apiKey: "AIzaSyD4uQyMGJ0aQqg8oBWnbWRfZyUoIMaYl3U",
@@ -31,10 +33,17 @@ const getUserData = new Promise((resolve, reject) => {
 getUserData
   .then((authData) => {
     console.log("Logged In");
-    console.log("Auth Data: ", authData);
+    console.log(currentPage);
+    if (currentPage == "index.html") {
+      window.location.replace("../home.html");
+      console.log("Auth Data: ", authData);
+    }
   })
   .catch((message) => {
     console.log("Not Logged In");
-    window.location.replace("../index.html");
-    console.log("Error Message: ", message);
+    console.log(currentPage);
+    if (currentPage != "index.html") {
+      window.location.replace("../index.html");
+      console.log("Error Message: ", message);
+    }
   });
