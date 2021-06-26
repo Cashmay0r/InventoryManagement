@@ -77,7 +77,7 @@ function printUserData(userProfile) {
   document.getElementById("company").innerHTML += " " + userProfile.company;
   document.getElementById("companyid").innerHTML += " " + userProfile.companyId;
 }
-
+//TODO: Need to check and potentially fix this feature
 function writeUserData() {
   const user = firebase.auth().currentUser;
 
@@ -113,7 +113,7 @@ function writeUserData() {
       console.log(err);
     });
 }
-
+//TODO: Need to fix this feature and make it useful
 function updateUserInfo() {
   var user = firebase.auth().currentUser;
   console.log(user.uid);
@@ -130,6 +130,7 @@ function updateUserInfo() {
       console.log(error);
     });
 }
+//TODO: Need to fix this so data can be updated
 function updateDetails() {
   const img = document.getElementById("imageUpdate").value;
   const fName = document.getElementById("fNameUpdate").value;

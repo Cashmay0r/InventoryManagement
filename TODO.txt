@@ -15,4 +15,4 @@ Link userID with account Details, Also link displayName
 -Item details include, itemID, itemName, itemImage, itemStockNo, etc
 -Ability to scan a barcode, or enter a code/productID and subtract the total from the database.
 -Ability to scan a barcode, or enter a code/productID to add to the stock total.
--Ability to pull a scok number from a single or multiple items.
+-Ability to pull     a scok number from a single or multiple items.
