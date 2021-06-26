@@ -5,14 +5,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
   if (currentPage == "account.html") {
     getUserData
       .then((user) => {
-        readUserData(user.uid);
+        printUserData(user.uid);
       })
+
       .catch((user) => {
         console.log("No User: ", user);
       });
   }
 
-  getData();
   //Button Listeners
   //Listener for logout button
   if (document.getElementById("logout") != null) {
@@ -36,6 +36,40 @@ document.addEventListener("DOMContentLoaded", (event) => {
   }
   //Listener for NavAccount
 });
+
+function readUserProfile(userId) {
+  const dbRef = firebase.database().ref();
+  dbRef
+    .child("users")
+    .child(userId)
+    .get()
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        const snap = snapshot.val();
+        return snapshot.val();
+      }
+    });
+}
+
+async function printUserData(userId) {
+  const userProfile = await readUserProfile(userId);
+  if (userProfile != null) {
+    console.log(userProfile);
+    document.getElementById("image").innerHTML += " " + userProfile.imageUrl;
+    console.log(userProfile.fName);
+    document.getElementById("userid").innerHTML += " " + userProfile.userId;
+    document.getElementById("authlevel").innerHTML += " " + userProfile.authLevel;
+    document.getElementById("fName").innerHTML += " " + userProfile.fName;
+    document.getElementById("lName").innerHTML += " " + userProfile.lName;
+    document.getElementById("email").innerHTML += " " + userProfile.email;
+    document.getElementById("phone").innerHTML += " " + userProfile.phone;
+    document.getElementById("company").innerHTML += " " + userProfile.company;
+    document.getElementById("companyid").innerHTML += " " + userProfile.companyId;
+  } else {
+    console.log("Error!");
+  }
+}
 
 function writeUserData() {
   const user = firebase.auth().currentUser;
@@ -71,37 +105,6 @@ function writeUserData() {
     .catch((err) => {
       console.log(err);
     });
-}
-
-function readUserData(userId) {
-  const dbRef = firebase.database().ref();
-  dbRef
-    .child("users")
-    .child(userId)
-    .get()
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log("No data available");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-function printUserData(data) {
-  let snap = data.val();
-  document.getElementById("image").innerHTML += " " + snap.imageUrl;
-  document.getElementById("userid").innerHTML += " " + snap.userId;
-  document.getElementById("authlevel").innerHTML += " " + snap.authLevel;
-  document.getElementById("fName").innerHTML += " " + snap.fName;
-  document.getElementById("lName").innerHTML += " " + snap.lName;
-  document.getElementById("email").innerHTML += " " + snap.email;
-  document.getElementById("phone").innerHTML += " " + snap.phone;
-  document.getElementById("company").innerHTML += " " + snap.company;
-  document.getElementById("companyid").innerHTML += " " + snap.companyId;
 }
 
 function updateUserInfo() {
