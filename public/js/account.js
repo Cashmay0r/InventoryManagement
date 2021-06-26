@@ -1,13 +1,19 @@
 //Displays current page file name, e.g., account.html
 const currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-
+let profile = new Promise((resovle, reject) => {});
 document.addEventListener("DOMContentLoaded", (event) => {
   if (currentPage == "account.html") {
     getUserData
       .then((user) => {
-        printUserData(user.uid);
+        readUserProfile(user.uid);
+        return profile;
       })
-
+      .then((profile) => {
+        printUserData(profile);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
       .catch((user) => {
         console.log("No User: ", user);
       });
@@ -38,37 +44,37 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 function readUserProfile(userId) {
-  const dbRef = firebase.database().ref();
-  dbRef
-    .child("users")
-    .child(userId)
-    .get()
-    .then((snapshot) => {
-      if (snapshot.exists()) {
+  profile = new Promise((resolve, reject) => {
+    const dbRef = firebase.database().ref();
+    dbRef
+      .child("users")
+      .child(userId)
+      .get()
+      .then((snapshot) => {
         console.log(snapshot.val());
-        const snap = snapshot.val();
-        return snapshot.val();
-      }
-    });
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          //const snap = snapshot.val();
+          resolve(snapshot.val());
+        } else {
+          reject("No snapshot");
+        }
+      });
+  });
 }
 
-async function printUserData(userId) {
-  const userProfile = await readUserProfile(userId);
-  if (userProfile != null) {
-    console.log(userProfile);
-    document.getElementById("image").innerHTML += " " + userProfile.imageUrl;
-    console.log(userProfile.fName);
-    document.getElementById("userid").innerHTML += " " + userProfile.userId;
-    document.getElementById("authlevel").innerHTML += " " + userProfile.authLevel;
-    document.getElementById("fName").innerHTML += " " + userProfile.fName;
-    document.getElementById("lName").innerHTML += " " + userProfile.lName;
-    document.getElementById("email").innerHTML += " " + userProfile.email;
-    document.getElementById("phone").innerHTML += " " + userProfile.phone;
-    document.getElementById("company").innerHTML += " " + userProfile.company;
-    document.getElementById("companyid").innerHTML += " " + userProfile.companyId;
-  } else {
-    console.log("Error!");
-  }
+function printUserData(userProfile) {
+  console.log(userProfile);
+  document.getElementById("image").innerHTML += " " + userProfile.imageUrl;
+  console.log(userProfile.fName);
+  document.getElementById("userid").innerHTML += " " + userProfile.userId;
+  document.getElementById("authlevel").innerHTML += " " + userProfile.authLevel;
+  document.getElementById("fName").innerHTML += " " + userProfile.fName;
+  document.getElementById("lName").innerHTML += " " + userProfile.lName;
+  document.getElementById("email").innerHTML += " " + userProfile.email;
+  document.getElementById("phone").innerHTML += " " + userProfile.phone;
+  document.getElementById("company").innerHTML += " " + userProfile.company;
+  document.getElementById("companyid").innerHTML += " " + userProfile.companyId;
 }
 
 function writeUserData() {
