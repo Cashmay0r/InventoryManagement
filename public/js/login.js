@@ -4,14 +4,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		console.log('Login Button Event Listener Attached');
 		document.getElementById('loginBtn').addEventListener('click', login);
 	}
+	if (document.getElementById('registerBtn') != null) {
+		console.log('Register Button Event Listener Attached');
+		document.getElementById('registerBtn').addEventListener('click', () => {
+			window.location.replace('../html/register.html');
+		});
+	}
 });
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
-		console.log('Logged In');
-		window.location.href = '../html/home.html';
+		userData();
+		getUserData
+			.then((profile) => {
+				console.log('User Profile Data Found');
+				window.location = '../html/home.html';
+			})
+			.catch((message) => {
+				console.log(message);
+				if (currentPage != 'createProfile.html') {
+					window.location.replace('../html/createProfile.html');
+				}
+			});
 	} else {
-		console.log('Not Logged In');
 	}
 });
 
@@ -20,8 +35,6 @@ function register() {
 	const pass = document.getElementById('passwordReg').value;
 	const passConfirm = document.getElementById('passwordRegConfirm').value;
 
-	console.log(email, pass, passConfirm);
-
 	if (pass.trim() === passConfirm.trim()) {
 		firebase
 			.auth()
@@ -29,8 +42,6 @@ function register() {
 			.then((userCredential) => {
 				// Signed i
 				var user = userCredential.user;
-				window.location = '../html/home.html';
-				console.log(user);
 			})
 			.catch((error) => {
 				var errorCode = error.code;
@@ -52,9 +63,6 @@ function login() {
 		.signInWithEmailAndPassword(email, password)
 		.then((userCredential) => {
 			console.log('User Logged In');
-			window.location = '../html/home.html';
-			var user = userCredential.user;
-			// ...
 		})
 		.catch((error) => {
 			var errorCode = error.code;

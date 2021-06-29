@@ -19,5 +19,5 @@ Link userID with account Details, Also link displayName
 
 To fix:
 -Update profile
--Register page
+-
 -
