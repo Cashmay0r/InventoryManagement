@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   }
   //Listener for NavAccount
 });
-//WoW
+
 function readUserProfile(userId) {
   profile = new Promise((resolve, reject) => {
     const dbRef = firebase.database().ref();
