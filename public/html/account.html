@@ -23,7 +23,7 @@
 		<nav class="bg-dark">
 			<ul class="nav flex-column nav-justified">
 				<li class="nav-item">
-					<a class="nav-link" href="home.html" id="navHome">Home Page</a>
+					<a class="nav-link" href="home.html" id="navHome">Home</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="account.html" id="navAccount">Account</a>
@@ -37,17 +37,16 @@
 			</ul>
 		</nav>
 		<main>
-			<div id="accountContent">
-				<h2>Your Profile</h2>
-				
+			<h1>Your Profile</h1>
+			<div id="profileContent" hidden>
 				<h2 id="displayName"></h2>
 				<p id="companyName"></p>
 				<p id="companyId"></p>
 				<img src="../img/user.png" id="userImage" />
-				<h2 id="authlevel"></h2>
-				<h2 id="email"></h2>
-				<h2 id="phoneNum"></h2>
-				<textarea id="bio">Bio:</textarea>
+				<h3 id="authlevel"></h3>
+				<h3 id="email"></h3>
+				<h3 id="phoneNum"></h3>
+				<p id="bio">Bio:</p>
 			</div>
 			<button class="btn btn-primary px-5 my-2" id="logout">Logout</button>
 			<button class="btn btn-primary px-5 my-2" id="updateDetails">Update</button>

@@ -61,6 +61,7 @@ function printUserData(userProfile) {
 	document.getElementById('companyName').innerHTML += ' ' + userProfile.company;
 	document.getElementById('companyId').innerHTML += ' ' + userProfile.companyId;
 	document.getElementById('bio').innerHTML += ' ' + 'This is my Account Yo wowzas';
+	document.getElementById('profileContent').removeAttribute('hidden');
 }
 
 function writeUserData() {
